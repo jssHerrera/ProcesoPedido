@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
+	<title>Listado de Productos</title>
+</h:head>
+<h:body>
+	<h:form id="frmListado">
+    	<p:growl id="growl" showDetail="true" />
+    	 <div class="card">
+    	 	
+    	 	<p:panelGrid columns="5">
+    	 		<p:outputLabel value="Nombre"/>
+    	 		<p:inputText id="txtNombre" value="#{productoMB.producto.nombre}" size="40"/>
+    	 		<p:commandButton value="Buscar" actionListener="#{productoMB.listar()}" ajax="true" update="tblProductos" />
+    	 		<p:commandButton value="Limpiar" action="#{productoMB.limpiar()}" ajax="true" update="tblProductos,txtNombre" />
+    	 		<p:commandButton value="Registrar" action="#{productoMB.nuevo()}"/>
+    	 	</p:panelGrid>
+    	 
+	        <p:dataTable id="tblProductos" var="producto" value="#{productoMB.productos}" style="width:50%"
+	         		 rows="10"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     rowsPerPageTemplate="5,10,{ShowAll|'Todos'}">
+                     
+	            <p:column headerText="Id" style="width:80px;text-align:center">
+	                <h:outputText value="#{producto.id}" />
+	            </p:column>
+	
+	            <p:column headerText="Nombre" style="width:350px">
+	                <h:outputText value="#{producto.nombre}" />
+	            </p:column>
+	
+	            <p:column headerText="Precio" style="width:80px;text-align:center">
+	                <h:outputText value="#{producto.precio}" />
+	            </p:column>
+	
+	            <p:column headerText="Stock" style="width:80px;text-align:center">
+	                <h:outputText value="#{producto.stock}" />
+	            </p:column>
+	            
+	            <p:column headerText="Acciones" style="width:220px;text-align:center">
+	                <p:commandButton value="Modificar" action="#{productoMB.modificar(producto)}"/>
+	                
+	                <p:commandButton value="Eliminar" actionListener="#{productoMB.eliminar(producto)}" 
+	                ajax="true" update="frmListado:tblProductos,frmListado:growl"/>
+	                
+	            </p:column>
+	           
+        	</p:dataTable>
+    	</div>
+		
+	</h:form>
+</h:body>
+
+</html>

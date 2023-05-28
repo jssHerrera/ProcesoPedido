@@ -1,0 +1,28 @@
+ SELECT
+                ID_USUARIO,
+                USUARIO,
+                CLAVE,
+                NOMBRE
+            FROM
+                USUARIO
+            WHERE
+                        USUARIO     =   'ANOVOA'
+                AND     CLAVE       =   '069e47397a2921d15be267864b7a491cffe240ef3a52daf226e83b2a6ac2748c' 
+                AND     ESTADO      =   '1';
+                
+                
+                SELECT 
+                    ID_PRODUCTO, 
+                    NOMBRE, 
+                    PRECIO,
+                    STOCK,
+                    ESTADO,
+                    AUD_TIPO,
+                    AUD_IDUSUARIO,
+                    (SELECT NOMBRE FROM USUARIO WHERE ID_USUARIO= AUD_IDUSUARIO)AS USUARIO,
+                    AUD_SESION,
+                    AUD_IP,
+                    to_char(AUD_FECHA,'dd/mm/yyyy hh24:mi:ss') FECHA
+                FROM 
+                    PRODUCTO;
+                    

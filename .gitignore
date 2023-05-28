@@ -1,0 +1,10 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Carpetas de compilación
+target/
+
+# Archivos de registro
+*.log
